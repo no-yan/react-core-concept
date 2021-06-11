@@ -100,7 +100,6 @@ setTimeout(() => {
 
 ## 遷移が保留されている間、どうすればいいか？
 
-As a best practice, you’ll want to inform the user that there is work happening in the background. For that, we provide a Hook with an `isPending` flag for transitions:
 
 ベストプラクティスなので、バックグランドで作業が行われていることをユーザーに伝えたいでしょう。そのために、遷移の`isPending`フラグをもったHookを用意しています。
 
