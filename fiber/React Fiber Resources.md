@@ -309,4 +309,13 @@ The “fiber” reconciler is a new effort aiming to resolve the problems inhere
 
 https://reactjs.org/docs/codebase-overview.html?source=post_page---------------------------#fiber-reconciler
 
-再帰的なスタックモデルの実装から非同期的な単連結リストへ移行することで、優先的な
+再帰的なスタックモデルの実装から非同期的な連結リストへ移行することで、レンダリングの中断と優先度付けを実現
+
+
+
+
+
+# Under-the-hood-ReactJS
+
+https://bogdan-lyashenko.github.io/Under-the-hood-ReactJS/
+

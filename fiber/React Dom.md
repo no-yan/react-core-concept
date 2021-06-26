@@ -382,3 +382,104 @@ https://github.com/facebook/react/pull/4174を見る限りでは、Reactのエ�
 
 containerは多分ルートエレメントのこと。一番親の部分
 
+
+
+これ以降new.js
+
+ConcurrentのRoot API
+
+createRoot(cont, opt):RootType
+
+*HTML nodeType* https://developer.mozilla.org/ja/docs/Web/API/Node/nodeType
+
+https://www.javadrive.jp/javascript/dom/index9.html
+
+
+
+
+
+TODO:suspenseCallback featureについて調べる
+
+https://github.com/facebook/react/pull/16134
+
+# FiberRootNode
+
+ただの初期化で、実際に値を入れているものは少ない
+
+```javascript
+function FiberRootNode(containerInfo, tag, hydrate) {
+  this.tag = tag;
+  this.containerInfo = containerInfo;
+  this.pendingChildren = null;
+  this.current = null;
+  this.pingCache = null;
+  this.finishedWork = null;
+  this.timeoutHandle = noTimeout;
+  this.context = null;
+  this.pendingContext = null;
+  this.hydrate = hydrate;
+  this.callbackNode = null;
+  this.callbackPriority = NoLane;
+  this.eventTimes = createLaneMap(NoLanes);
+  this.expirationTimes = createLaneMap(NoTimestamp);
+
+  this.pendingLanes = NoLanes;
+  this.suspendedLanes = NoLanes;
+  this.pingedLanes = NoLanes;
+  this.expiredLanes = NoLanes;
+  this.mutableReadLanes = NoLanes;
+  this.finishedLanes = NoLanes;
+
+  this.entangledLanes = NoLanes;
+  this.entanglements = createLaneMap(NoLanes);
+
+  if (enableCache) {
+    this.pooledCache = null;
+    this.pooledCacheLanes = NoLanes;
+  }
+
+  if (supportsHydration) {
+    this.mutableSourceEagerHydrationData = null;
+  }
+
+  if (enableSuspenseCallback) {
+    this.hydrationCallbacks = null;
+  }
+
+  if (enableProfilerTimer && enableProfilerCommitHooks) {
+    this.effectDuration = 0;
+    this.passiveEffectDuration = 0;
+  }
+
+  if (enableUpdaterTracking) {
+    this.memoizedUpdaters = new Set();
+    const pendingUpdatersLaneMap = (this.pendingUpdatersLaneMap = []);
+    for (let i = 0; i < TotalLanes; i++) {
+      pendingUpdatersLaneMap.push(new Set());
+    }
+  }
+
+  if (__DEV__) {
+    switch (tag) {
+      case ConcurrentRoot:
+        this._debugRootType = 'createRoot()';
+        break;
+      case LegacyRoot:
+        this._debugRootType = 'createLegacyRoot()';
+        break;
+    }
+  }
+}
+```
+
+# createFiberRoot
+
+```javascript
+const uninitializedFiber = createHostRootFiber(
+    tag,
+    isStrictMode,
+    concurrentUpdatesByDefaultOverride,
+  );
+  root.current = uninitializedFiber;
+```
+
