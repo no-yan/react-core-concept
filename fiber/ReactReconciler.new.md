@@ -132,5 +132,5 @@ export function requestUpdateLane(fiber: Fiber): Lane {
 # **enqueueUpdate**
 
 謎。なにやってるの？**Interleaved**という概念も不明
-
+＝＞　interelaved updateはレンダリング中に追加された更新。典型的には、concurrent下でのユーザー入力イベント。
 多分渡されたupdate引数に対して update.nextを追加している
